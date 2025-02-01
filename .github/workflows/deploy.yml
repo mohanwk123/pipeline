@@ -1,0 +1,30 @@
+name: Deploy to AWS EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.EC2_PUBLIC_IP }} >> ~/.ssh/known_hosts
+
+      - name: Deploy application
+        run: |
+          ssh ubuntu@${{ secrets.EC2_PUBLIC_IP }} << 'EOF'
+            cd ~/pipeline || { git clone https://github.com/your-username/pipeline.git ~/pipeline && cd ~/pipeline; }
+            git pull origin main
+            docker-compose down
+            docker-compose up --build -d
+          EOF
