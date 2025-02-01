@@ -23,8 +23,12 @@ jobs:
       - name: Deploy application
         run: |
           ssh ubuntu@${{ secrets.EC2_PUBLIC_IP }} << 'EOF'
-            cd ~/pipeline || { git clone https://github.com/mohanwk123/pipeline.git ~/pipeline && cd ~/pipeline; }
+            cd ~/pipeline
+            pwd
+            ls
             git pull origin main
+            pwd
+            ls
             docker-compose down
             docker-compose up --build -d
           EOF
