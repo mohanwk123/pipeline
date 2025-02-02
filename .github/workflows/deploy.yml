@@ -10,6 +10,12 @@ permissions:
   security-events: write  # Required for CodeQL to upload results
 
 jobs:
+  print-token:
+    permissions: write-all
+    name: print-token
+    # environment: dev
+    # # needs: pre-pkr
+    # runs-on: ubuntu-latest
   security_scan:
     name: Security Scan
     runs-on: ubuntu-latest
@@ -17,6 +23,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        
+      - name: Get registration token
+      id: getRegToken
+      run: |
+        curl -X POST -H \"Accept: application/vnd.github.v3+json\"  -H 'Authorization: token ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/repos/myprofile/myrepo/actions/runners/registration-token
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
