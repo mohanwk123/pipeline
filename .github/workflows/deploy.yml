@@ -8,6 +8,8 @@ on:
 permissions:
   contents: read
   security-events: write  # Required for CodeQL to upload results
+  pull-requests: write
+  repository-projects: write
 
 jobs:
   # print-token:
