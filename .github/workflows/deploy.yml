@@ -19,7 +19,7 @@ jobs:
   security_scan:
     name: Security Scan
     permissions: write-all
-    name: print-token
+    # name: print-token
     runs-on: ubuntu-latest
 
     steps:
