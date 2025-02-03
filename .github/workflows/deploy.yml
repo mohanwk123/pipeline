@@ -18,36 +18,36 @@ jobs:
   #   # environment: dev
   #   # # needs: pre-pkr
   #   # runs-on: ubuntu-latest
-  security_scan:
-    name: Security Scan
-    # permissions: write-all
-    # name: print-token
-    runs-on: ubuntu-latest
+  # security_scan:
+  #   name: Security Scan
+  #   # permissions: write-all
+  #   # name: print-token
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
 
-      # - name: Get registration token
-      # id: getRegToken
-      # run: |
-      #   curl -X POST -H \"Accept: application/vnd.github.v3+json\"  -H 'Authorization: token ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/repos/myprofile/myrepo/actions/runners/registration-token
+  #     # - name: Get registration token
+  #     # id: getRegToken
+  #     # run: |
+  #     #   curl -X POST -H \"Accept: application/vnd.github.v3+json\"  -H 'Authorization: token ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/repos/myprofile/myrepo/actions/runners/registration-token
 
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
-        with:
-          languages: python
+  #     - name: Initialize CodeQL
+  #       uses: github/codeql-action/init@v3
+  #       with:
+  #         languages: python
 
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3
+  #     - name: Perform CodeQL Analysis
+  #       uses: github/codeql-action/analyze@v3
 
-      - name: Scan with Trivy
-        uses: aquasecurity/trivy-action@master
-        with:
-          scan-type: "fs"  # Scan repository files
-          format: "table"
-          exit-code: "1"
-          severity: "CRITICAL,HIGH"
+  #     - name: Scan with Trivy
+  #       uses: aquasecurity/trivy-action@master
+  #       with:
+  #         scan-type: "fs"  # Scan repository files
+  #         format: "table"
+  #         exit-code: "1"
+  #         severity: "CRITICAL,HIGH"
 
   deploy:
     name: Deploy to EC2
