@@ -40,6 +40,46 @@ You need to store the following secrets in your GitHub repository to deploy corr
 
 3. Access the Flask app via `http://localhost:80`.
 
+## How to Run Remotely (AWS EC2)
+
+Before running the pipeline on AWS EC2, you need to set up your EC2 instance and install Docker. Follow the steps below to get your EC2 instance ready:
+
+1. **SSH into your EC2 instance**:
+    ```bash
+    ssh ubuntu@<your-ec2-public-ip>
+    ```
+
+2. **Install Docker and Docker Compose**:
+    ```bash
+    sudo apt update
+    sudo apt install -y docker.io docker-compose
+    sudo systemctl start docker
+    sudo systemctl enable docker
+    ```
+
+3. **Add your user to the Docker group**:
+    ```bash
+    sudo usermod -aG docker $USER
+    ```
+
+4. **Clone the GitHub repository to your EC2 instance**:
+    ```bash
+    git clone https://github.com/mohanwk123/pipeline.git
+    cd pipeline/
+    ```
+
+5. **Configure Git to store your credentials**:
+    ```bash
+    git config credential.helper store
+    ```
+
+6. **Pull the latest changes**:
+    ```bash
+    git pull
+    ```
+
+Once your EC2 instance is set up and the repository is cloned, the **GitHub Actions** pipeline will automatically trigger and deploy the app to the EC2 instance.
+
 ## How to Deploy to AWS EC2
 
 1. Push your changes to the **main** branch on GitHub.
