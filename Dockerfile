@@ -1,21 +1,15 @@
-# Use a smaller base image
-FROM python:3.9-slim
+# Use official Python image as base
+FROM python:3.9
 
 # Set working directory
 WORKDIR /app
 
-# Copy requirements first for better caching
-COPY requirements.txt .
+# Copy files
+COPY requirements.txt requirements.txt
+COPY app.py app.py
 
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy the rest of the application files
-COPY . .
-
-# Use a non-root user for security
-RUN useradd -m appuser
-USER appuser
 
 # Expose port
 EXPOSE 5000
