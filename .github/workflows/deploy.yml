@@ -30,7 +30,7 @@ jobs:
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
 
-      Run Trivy Security Scan for Docker Images
+      # Run Trivy Security Scan for Docker Images
       - name: Run Trivy Vulnerability Scanner
         uses: aquasecurity/trivy-action@master
         with:
