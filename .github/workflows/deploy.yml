@@ -21,14 +21,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Run CodeQL Analysis
+      # Run CodeQL Analysis with v3
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
+        uses: github/codeql-action/init@v3
         with:
           languages: python
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
+        uses: github/codeql-action/analyze@v3
 
       # Run Trivy Security Scan for Docker Images
       - name: Run Trivy Vulnerability Scanner
